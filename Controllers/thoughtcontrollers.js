@@ -21,14 +21,26 @@ createThought(req, res) {
     .then(({ _id }) => {
         return User.findOneAndUpdate(
             { _id: req.body.userId },
-            ( $push: { thoughts: _id } ),
+            { $push: { thoughts: _id } },
             { new: true }
         );
     })
     .then((thought) =>
     !thought
     ? res.status(404).json({ message: "No user found with this ID!"})
-    : res.json(thought))
+    : res.json(thought)
+    )
+    .catc((err) => res.status(500).json(err));
+},
+
+updateThought(req, res) {
+    Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $set: req.body },
+        { runValidators: true, New: true }
+    )
+    .then((user) => 
+    !usern )
 }
-b 
+
 }
